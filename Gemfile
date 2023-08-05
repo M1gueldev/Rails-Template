@@ -68,6 +68,8 @@ group :development do
   # gem "spring"
 
   gem "foreman"
+  gem 'i18n-tasks', '~> 1.0.12'
+  gem 'devise-i18n'
 end
 
 group :test do
