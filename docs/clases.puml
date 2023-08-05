@@ -3,57 +3,62 @@ left to right direction
 
 class Usuario {
   ID_Usuario: int
-  ..
   Nombre: s
   CI: s
   Correo: s
   Cantraseña: s
   Rol: int
+  ..
+  CRUD
 }
 
 class Venta {
   ID_Venta: int
-  ..
   Fecha: Time
   Cantidad: int
   ID_Usuario: int
   ID_Producto: int
+  ..
+  CRUD
 }
 
 class Producto {
-  ID_Producto: int
-  ..
+  ID_Producto: int  
   Nombre: s
   Peso_o_Caracteristica: int
+  ..
+  CRUD
 }
 
 class Lote {
-  ID_Lote: int
-  ..
+  ID_Lote: int  
   Fecha_Elab: Time
   Tiempo_secado: int
   ID_Producto: int
+  ..
+  CRUD
 }
 
 class Stock_Producto {
   ID_Stock_Producto: int  
-  ..
   Cantidad_en_Proc: int
   Cantidad_Terminada: int
   ID_Producto: int
   ID_Almacen: int
+  ..
+  CRUD
 }
 
 class Proveedor {
   ID_Proveedor: int
-  ..
   Nit: s
   Nombre: s
+  ..
+  CRUD
 }
 
 class Entrega {
   ID_Producto: int
-  ..
   ID_Entrega: int
   Restante: int
   Cantidad: int
@@ -62,37 +67,43 @@ class Entrega {
   ID_Proveedor: int
   ID_Usuario: int
   ID_Materia_Prima: int  
+  ..
+  CRUD
 }
 
 class Materia_Prima {
   ID_Materia_Prima: int
-  ..
   Nombre: s
   Cantidad: int
+  ..
+  CRUD
+  Registrar Entrega: int
 }
 
 class Stock_Material {
   ID_Stock_Material: int
-  ..
   Cantidad: int
   ID_Materia_Prima: int
   ID_Almacen: int
+  ..
+  CRUD
 }
 
 class Almacen {
   ID_Almacen: int
-  ..
   Nombre: s
+  ..
+  CRUD
 }
-Venta::ID_Usuario "1" - "N" Usuario::ID_Usuario
-Usuario::Correo "1" -- "N" Entrega::Cantidad
-Venta::Fecha "N" -- "1" Producto::Peso_o_Caracteristica
-Proveedor::Nit "1" -- "N" Entrega::ID_Entrega
-Entrega::Placa "N" -- "1" Materia_Prima::ID_Materia_Prima
-Materia_Prima::Nombre "1" -- "N" Stock_Material::Cantidad
-Stock_Material::Cantidad "N" -- "1" Almacen::Nombre
-Almacen::ID_Almacen "1" -up-- "N" Stock_Producto::ID_Almacen
-Producto::Peso_o_Caracteristica "1" -- "N" Stock_Producto::Cantidad_en_Proc
-Producto::CRUD "1" -- "N" Entrega::ID_Producto
-Producto::ID_Producto "1" -- "N" Lote::Tiempo_secado
+Venta::ID_Usuario -* Usuario::ID_Usuario
+Usuario::Correo --* Entrega::Cantidad
+Venta::Fecha *-- Producto::Peso_o_Caracteristica
+Proveedor::Nit --* Entrega::ID_Entrega
+Entrega::Placa *-- Materia_Prima::ID_Materia_Prima
+Materia_Prima::Nombre --* Stock_Material::Cantidad
+Stock_Material::Cantidad *-- Almacen::Nombre
+Almacen::ID_Almacen -up--* Stock_Producto::ID_Almacen
+Producto::Peso_o_Caracteristica --* Stock_Producto::Cantidad_en_Proc
+Producto::CRUD --* Entrega::ID_Producto
+Producto::ID_Producto --* Lote::Tiempo_secado
 @enduml
